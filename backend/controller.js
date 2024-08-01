@@ -65,10 +65,30 @@ async function getExpenditure(req, res) {
     }
 }
 
+// 지출 불러오기
+async function getByCategory(req, res) {
+    try {
+        const category = req.query.category;
+
+        if (!category) {
+            return res.status(400).json({ error: "Category query parameter is required" });
+        }
+
+        const data = await service.getByCategory(category);
+        res.status(200).json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error " });
+    }
+}
+
+
+
 module.exports = {
     test,
     getAllData,
     createData,
     getIncome,
     getExpenditure,
+    getByCategory,
 };

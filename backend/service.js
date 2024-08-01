@@ -89,6 +89,20 @@ async function getExpenditure() {
     }
 }
 
+// 카테고리 항목별 데이터 불러오기
+async function getByCategory(category) {
+    const client = await pool.connect();
+
+    try {
+        const result = await client.query("SELECT * FROM account_book WHERE category = $1", [category]);
+        return result.rows;
+    } catch (err) {
+        console.error("Error executing query:", err);
+        throw err;
+    } finally {
+        client.release();
+    }
+}
 
 
 
@@ -98,4 +112,5 @@ module.exports = {
     createData,
     getIncome,
     getExpenditure,
+    getByCategory,
 };

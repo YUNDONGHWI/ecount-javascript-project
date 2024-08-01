@@ -20,4 +20,8 @@ router.get("/income", controller.getIncome)
 // 지출 데이터 조회
 router.get("/expenditure", controller.getExpenditure)
 
+// 항목별 데이터 조회
+router.get("/category", controller.getByCategory)
+
 module.exports = router;
+
