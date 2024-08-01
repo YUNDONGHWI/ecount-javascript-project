@@ -17,6 +17,11 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
+// test
+app.get("/account", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/account/account.html"));
+});
+
 //서버 실행
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

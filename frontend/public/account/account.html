@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple SPA with Vanilla JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    button {
+      margin: 5px;
+    }
+    #data-container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>재무 관리</h1>
+  <div id="buttons">
+    <button onclick="fetchData('all')">전체</button>
+    <button onclick="fetchData('income')">수입</button>
+    <button onclick="fetchData('expense')">지출</button>
+  </div>
+  <div id="data-container"></div>
+
+  <script>
+    async function fetchData(category) {
+      // 임의의 API URL 설정 (실제 백엔드 API 엔드포인트로 교체 필요)
+      if (category == 'all') {
+        const url = `https://example.com/api/account-book`;
+      } else if (category == 'income') {
+        const url = `https://example.com/api/income`;
+      } else if (category == 'expense') {
+        const url = `https://example.com/api/expenditure`;
+      }
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        renderData(data);
+      } catch (error) {
+        console.error('Fetch error:', error);
+        renderError(error);
+      }
+    }
+
+    function renderData(data) {
+      const container = document.getElementById('data-container');
+      container.innerHTML = ''; // 기존 내용을 지우기
+
+      if (data.length === 0) {
+        container.innerHTML = '<p>No data available</p>';
+        return;
+      }
+
+      const list = document.createElement('ul');
+      data.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `ID: ${item.id}, Amount: ${item.amount}, Description: ${item.description}`;
+        list.appendChild(listItem);
+      });
+      container.appendChild(list);
+    }
+
+    function renderError(error) {
+      const container = document.getElementById('data-container');
+      container.innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  </script>
+</body>
+</html>
