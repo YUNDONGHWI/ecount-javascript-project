@@ -1,5 +1,4 @@
 const pool = require("./db");
-const AccountBook = require("./model");
 
 // 테스트
 async function getTest() {
