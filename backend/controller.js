@@ -43,8 +43,20 @@ async function createData(req, res) {
     } 
 }
 
+// 수입 불러오기
+async function getIncome(req, res) {
+    try {
+        const data = await service.getIncome();
+        res.status(200).json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error " });
+    }
+}
+
 module.exports = {
     test,
     getAllData,
     createData,
+    getIncome,
 };

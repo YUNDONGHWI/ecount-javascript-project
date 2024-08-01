@@ -33,7 +33,7 @@ async function getAllData() {
 // 수입/지출 데이터 입력하기
 async function createData(requestData) {
     const client = await pool.connect();
-
+    
     try {
         const insertQuery = `
             INSERT INTO account_book (category, is_income, content, amount)
@@ -59,27 +59,13 @@ async function createData(requestData) {
     }
 }
 
-// 수입/지출 데이터 입력하기
-async function createData(requestData) {
+// 수입데이터만 불러오기
+async function getIncome() {
     const client = await pool.connect();
 
     try {
-        const insertQuery = `
-            INSERT INTO account_book (category, is_income, content, amount)
-            VALUES ($1, $2, $3, $4)
-            RETURNING *;
-        `;
-
-        const values = [
-            requestData.getCategory(),
-            requestData.getIsIncome(),
-            requestData.getContent(),
-            requestData.getAmount(),
-        ];
-
-        const result = await client.query(insertQuery, values);
-
-        return result.rows[0];
+        const result = await client.query("SELECT * FROM account_book WHERE is_income = true");
+        return result.rows;
     } catch (err) {
         console.error("Error executing query:", err);
         throw err;
@@ -87,9 +73,12 @@ async function createData(requestData) {
         client.release();
     }
 }
+
+
 
 module.exports = {
     getTest,
     getAllData,
     createData,
+    getIncome,
 };
