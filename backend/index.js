@@ -10,6 +10,9 @@ app.get("/", (req, res) => {
 
 //CORS 설정 후 라우터 사용 필요.
 
+// Express Json 미들웨어
+app.use(express.json());
+
 // /api 경로 요청에 대해 router 사용
 app.use("/api", router);
 
