@@ -104,6 +104,31 @@ async function getByCategory(category) {
     }
 }
 
+// 월별 항목별 합산 데이터 불러오기
+async function getByMonth(year, month) {
+    const client = await pool.connect();
+
+    try {
+        const monthQuery = `
+            SELECT category, is_income, SUM(amount) AS total_amount
+            FROM account_book
+            WHERE EXTRACT(YEAR FROM created_dttm) = $1
+              AND EXTRACT(MONTH FROM created_dttm) = $2
+            GROUP BY category, is_income
+            ORDER BY category;
+        `;
+
+        const values = [year, month];
+
+        const result = await client.query(monthQuery, values);
+        return result.rows;
+    } catch (err) {
+        console.error("Error executing query:", err);
+        throw err;
+    } finally {
+        client.release();
+    }
+}
 
 
 module.exports = {
@@ -113,4 +138,5 @@ module.exports = {
     getIncome,
     getExpenditure,
     getByCategory,
+    getByMonth,
 };

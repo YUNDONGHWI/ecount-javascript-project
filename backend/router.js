@@ -23,5 +23,8 @@ router.get("/expenditure", controller.getExpenditure)
 // 항목별 데이터 조회
 router.get("/category", controller.getByCategory)
 
+// 월별 항목별 합산 데이터 조회
+router.get("/monthly-data", controller.getByMonth)
+
 module.exports = router;
 

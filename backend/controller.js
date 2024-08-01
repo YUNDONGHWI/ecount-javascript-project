@@ -65,7 +65,7 @@ async function getExpenditure(req, res) {
     }
 }
 
-// 지출 불러오기
+// 항목별 데이터 불러오기
 async function getByCategory(req, res) {
     try {
         const category = req.query.category;
@@ -82,6 +82,23 @@ async function getByCategory(req, res) {
     }
 }
 
+// 월별 항목별 합산 데이터 불러오기
+async function getByMonth(req, res) {
+    try {
+        const year = req.query.year;
+        const month = req.query.month;
+
+        if (!year || !month) {
+            return res.status(400).json({ error: "Period query parameter is required" });
+        }
+
+        const data = await service.getByMonth(year, month);
+        res.status(200).json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error " });
+    }
+}
 
 
 module.exports = {
@@ -91,4 +108,5 @@ module.exports = {
     getIncome,
     getExpenditure,
     getByCategory,
+    getByMonth,
 };
