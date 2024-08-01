@@ -8,4 +8,7 @@ const controller = require("./controller");
 // GET /api/test - db 커넥션 테스트
 router.get("/test", controller.test);
 
+// DB 모든 정보 조회
+router.get("/account-book", controller.getAllData)
+
 module.exports = router;
