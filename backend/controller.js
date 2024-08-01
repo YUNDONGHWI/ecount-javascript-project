@@ -54,9 +54,21 @@ async function getIncome(req, res) {
     }
 }
 
+// 지출 불러오기
+async function getExpenditure(req, res) {
+    try {
+        const data = await service.getExpenditure();
+        res.status(200).json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error " });
+    }
+}
+
 module.exports = {
     test,
     getAllData,
     createData,
     getIncome,
+    getExpenditure,
 };

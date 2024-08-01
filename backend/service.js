@@ -74,6 +74,22 @@ async function getIncome() {
     }
 }
 
+// 지출데이터만 불러오기
+async function getExpenditure() {
+    const client = await pool.connect();
+
+    try {
+        const result = await client.query("SELECT * FROM account_book WHERE is_income = false");
+        return result.rows;
+    } catch (err) {
+        console.error("Error executing query:", err);
+        throw err;
+    } finally {
+        client.release();
+    }
+}
+
+
 
 
 module.exports = {
@@ -81,4 +97,5 @@ module.exports = {
     getAllData,
     createData,
     getIncome,
+    getExpenditure,
 };

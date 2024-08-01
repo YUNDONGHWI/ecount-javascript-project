@@ -17,4 +17,7 @@ router.post("/account-book", controller.createData)
 // 수입 데이터 조회
 router.get("/income", controller.getIncome)
 
+// 지출 데이터 조회
+router.get("/expenditure", controller.getExpenditure)
+
 module.exports = router;
