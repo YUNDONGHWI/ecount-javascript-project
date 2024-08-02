@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #00055e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 15%;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+    width: 25rem;
+    height: 25rem;
+    color: #00055e;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 3rem;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: gray; /* 진한 회색 */
+    color: white; /* 글씨색 흰색 */
+    transform: scale(1.05); /* 크기 살짝 키우기 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+a {
+    text-decoration-line: none;
+}

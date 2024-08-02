@@ -28,13 +28,17 @@
 
   <script>
     async function fetchData(category) {
+
+      const URI = "http://localhost:5000"
+      let url = ""
+
       // 임의의 API URL 설정 (실제 백엔드 API 엔드포인트로 교체 필요)
       if (category == 'all') {
-        const url = `https://example.com/api/account-book`;
+        url = `${URI}/api/account-book`;
       } else if (category == 'income') {
-        const url = `https://example.com/api/income`;
+        url = `${URI}/api/income`;
       } else if (category == 'expense') {
-        const url = `https://example.com/api/expenditure`;
+        url = `${URI}/api/expenditure`;
       }
 
       try {
@@ -60,7 +64,7 @@
       const list = document.createElement('ul');
       data.forEach(item => {
         const listItem = document.createElement('li');
-        listItem.textContent = `ID: ${item.id}, Amount: ${item.amount}, Description: ${item.description}`;
+        listItem.textContent = `일시: ${item.createdDttm}, 분류: ${item.category}, 내용: ${item.content}, 금액: ${item.amount}`;
         list.appendChild(listItem);
       });
       container.appendChild(list);
