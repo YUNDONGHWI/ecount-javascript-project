@@ -125,6 +125,9 @@ async function getByMonth(year, month) {
         `;
 
         const values = [year, month];
+
+        const result = await client.query(monthQuery, values);
+        let datas = result.rows;
         let totalIncome = 0;
         let totalExpense = 0;
         let flexIncome = 0;
@@ -132,23 +135,25 @@ async function getByMonth(year, month) {
         let flexExpense = 0;
         let fixedExpense = 0;
 
-        const result = await client.query(monthQuery, values);
-        let datas = result.rows;
         const fixedExpenseCategories = ["통신비", "교육비", "주거비", "세금"];
+        const flexExpenseCategories = ["식비", "여가비", "의료비"];
 
         result.rows.forEach((row) => {
-            if (fixedExpenseCategories.includes(row.category)) {
-                //고정비 + 총비용
+            if (fixedExpenseCategories.includes(row.category) && row.is_income === false) {
+                // 고정비용
                 fixedExpense += Number(row.total_amount);
-            } else if (!fixedExpenseCategories.includes(row.category) && row.is_income === false) {
-                //유동비 + 총비용
+            } else if (flexExpenseCategories.includes(row.category) && row.is_income === false) {
+                // 유동비용
                 flexExpense += Number(row.total_amount);
-            } else if (row.category === "월급") {
-                fixedIncome += Number(row.total_amount);
-            } else if (row.category === "상여급") {
+            } else if (row.category === "상여급" && row.is_income === true) {
+                // 유동수익
                 flexIncome += Number(row.total_amount);
+            } else if (row.category === "월급" && row.is_income === true) {
+                // 고정수익
+                fixedIncome += Number(row.total_amount);
             }
         });
+
         totalIncome = flexIncome + fixedIncome;
         totalExpense = flexExpense + fixedExpense;
 

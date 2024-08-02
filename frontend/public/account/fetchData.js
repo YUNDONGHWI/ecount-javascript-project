@@ -28,6 +28,33 @@ function render(data) {
         return;
     }
 
+    let fixedExpenseDetails = [
+        { label: "고정 비용", amount: data.fixedExpense }, //고정비 : "통신비" || "교육비" || "주거비" || "세금"
+    ];
+    let flexExpenseDetails = [{ label: "유동 비용", amount: data.flexExpense }];
+    let fixedIncomeDetails = [
+        { label: "고정 수입", amount: data.fixedIncome }, //월급
+    ];
+    let flexIncomeDetails = [
+        { label: "유동 수입", amount: data.flexIncome }, //상여급
+    ];
+
+    const rows = data.datas;
+    const fixedExpenseCategories = ["통신비", "교육비", "주거비", "세금"];
+    const flexExpenseCategories = ["식비", "여가비", "의료비"];
+
+    rows.forEach((item) => {
+        if (fixedExpenseCategories.includes(item.category) && item.is_income === false) {
+            fixedExpenseDetails.push({ label: item.category, amount: Number(item.total_amount) });
+        } else if (flexExpenseCategories.includes(item.category) && item.is_income === false) {
+            flexExpenseDetails.push({ label: item.category, amount: Number(item.total_amount) });
+        } else if (item.category === "월급" && item.is_income === true) {
+            fixedIncomeDetails.push({ label: item.category, amount: Number(item.total_amount) });
+        } else if (item.category === "상여급" && item.is_income === true) {
+            flexIncomeDetails.push({ label: item.category, amount: Number(item.total_amount) });
+        }
+    });
+
     const tableBody = document.querySelector("#monthTable tbody");
     const totalExpenseRow = document.createElement("tr");
     totalExpenseRow.innerHTML = `
@@ -37,35 +64,45 @@ function render(data) {
     `;
     tableBody.appendChild(totalExpenseRow);
 
-    let fixedExpenseDetails = [
-        { label: "고정 비용", amount: data.fixedExpense }, //고정비 : "통신비" || "교육비" || "주거비" || "세금"
-    ];
-    let flexExpenseDetails = [{ label: "유동 비용", amount: data.flexExpense }];
-    let fixedIncomeDetails = [
-        { label: "고정 수입", amount: data.fixedIncome }, //월급
-    ];
-    let flexIncomeDetails = [
-        { label: "유동 수입", amout: data.flexIncome }, //상여급
-    ];
-
-    const rows = data.datas;
-    const fixedExpenseCategories = ["통신비", "교육비", "주거비", "세금"];
-
-    rows.forEach((item) => {
-        if (fixedExpenseCategories.includes(item.category)) {
-            fixedExpenseDetails.push({ label: item.category, amount: Number(item.total_amount) });
-        } else if (!fixedExpenseCategories.includes(item.category) && item.is_income === false) {
-            flexExpenseDetails.push({ label: item.category, amount: Number(item.total_amount) });
-        } else if (item.category === "월급") {
-            fixedIncomeDetails.push({ label: item.category, amount: Number(item.total_amount) });
-        } else if (item.category === "상여급") {
-            flexIncomeDetails.push({ label: item.category, amount: Number(item.total_amount) });
-        }
+    fixedExpenseDetails.forEach((item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td>${item.label}</td>
+        <td>${item.amount}</td>
+        <td></td>
+        `;
+        tableBody.appendChild(row);
     });
-    console.log(fixedExpenseDetails);
-    console.log(flexExpenseDetails);
-    console.log(fixedIncomeDetails);
-    console.log(flexIncomeDetails);
+
+    flexExpenseDetails.forEach((item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td>${item.label}</td>
+        <td>${item.amount}</td>
+        <td></td>
+        `;
+        tableBody.appendChild(row);
+    });
+
+    fixedIncomeDetails.forEach((item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td>${item.label}</td>
+        <td>${item.amount}</td>
+        <td></td>
+        `;
+        tableBody.appendChild(row);
+    });
+
+    flexIncomeDetails.forEach((item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td>${item.label}</td>
+        <td>${item.amount}</td>
+        <td></td>
+        `;
+        tableBody.appendChild(row);
+    });
 }
 
 function calcTotalIncome(data) {}
