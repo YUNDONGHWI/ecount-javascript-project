@@ -4,7 +4,7 @@ function cors(req, res, next) {
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // 허용 HTTP 메서드
     res.header(
         "Access-Control-Allow-Headers",
-        "Content-Type, Authorization, application/json, text/html"
+        "Content-Type"
     ); // 허용 요청 헤더
 
     // Preflight

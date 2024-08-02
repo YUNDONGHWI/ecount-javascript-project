@@ -20,7 +20,7 @@ async function getAllData() {
     const client = await pool.connect();
 
     try {
-        const result = await client.query("SELECT * FROM account_book");
+        const result = await client.query("SELECT * FROM account_book ORDER BY created_dttm DESC");
         return result.rows;
     } catch (err) {
         console.error("Error executing query:", err);
@@ -64,7 +64,7 @@ async function getIncome() {
     const client = await pool.connect();
 
     try {
-        const result = await client.query("SELECT * FROM account_book WHERE is_income = true");
+        const result = await client.query("SELECT * FROM account_book WHERE is_income = true ORDER BY created_dttm DESC");
         return result.rows;
     } catch (err) {
         console.error("Error executing query:", err);
@@ -79,7 +79,7 @@ async function getExpenditure() {
     const client = await pool.connect();
 
     try {
-        const result = await client.query("SELECT * FROM account_book WHERE is_income = false");
+        const result = await client.query("SELECT * FROM account_book WHERE is_income = false ORDER BY created_dttm DESC");
         return result.rows;
     } catch (err) {
         console.error("Error executing query:", err);
