@@ -1,5 +1,5 @@
 const pool = require("./db");
-
+const MonthResponse = require("./model/MonthResponse");
 // 테스트
 async function getTest() {
     const client = await pool.connect();
@@ -33,7 +33,7 @@ async function getAllData() {
 // 수입/지출 데이터 입력하기
 async function createData(requestData) {
     const client = await pool.connect();
-    
+
     try {
         const insertQuery = `
             INSERT INTO account_book (category, is_income, content, amount)
@@ -64,7 +64,9 @@ async function getIncome() {
     const client = await pool.connect();
 
     try {
-        const result = await client.query("SELECT * FROM account_book WHERE is_income = true ORDER BY created_dttm DESC");
+        const result = await client.query(
+            "SELECT * FROM account_book WHERE is_income = true ORDER BY created_dttm DESC"
+        );
         return result.rows;
     } catch (err) {
         console.error("Error executing query:", err);
@@ -79,7 +81,9 @@ async function getExpenditure() {
     const client = await pool.connect();
 
     try {
-        const result = await client.query("SELECT * FROM account_book WHERE is_income = false ORDER BY created_dttm DESC");
+        const result = await client.query(
+            "SELECT * FROM account_book WHERE is_income = false ORDER BY created_dttm DESC"
+        );
         return result.rows;
     } catch (err) {
         console.error("Error executing query:", err);
@@ -94,7 +98,9 @@ async function getByCategory(category) {
     const client = await pool.connect();
 
     try {
-        const result = await client.query("SELECT * FROM account_book WHERE category = $1", [category]);
+        const result = await client.query("SELECT * FROM account_book WHERE category = $1", [
+            category,
+        ]);
         return result.rows;
     } catch (err) {
         console.error("Error executing query:", err);
@@ -119,9 +125,43 @@ async function getByMonth(year, month) {
         `;
 
         const values = [year, month];
+        let totalIncome = 0;
+        let totalExpense = 0;
+        let flexIncome = 0;
+        let fixedIncome = 0;
+        let flexExpense = 0;
+        let fixedExpense = 0;
 
         const result = await client.query(monthQuery, values);
-        return result.rows;
+        let datas = result.rows;
+        const fixedExpenseCategories = ["통신비", "교육비", "주거비", "세금"];
+
+        result.rows.forEach((row) => {
+            if (fixedExpenseCategories.includes(row.category)) {
+                //고정비 + 총비용
+                fixedExpense += Number(row.total_amount);
+            } else if (!fixedExpenseCategories.includes(row.category) && row.is_income === false) {
+                //유동비 + 총비용
+                flexExpense += Number(row.total_amount);
+            } else if (row.category === "월급") {
+                fixedIncome += Number(row.total_amount);
+            } else if (row.category === "상여급") {
+                flexIncome += Number(row.total_amount);
+            }
+        });
+        totalIncome = flexIncome + fixedIncome;
+        totalExpense = flexExpense + fixedExpense;
+
+        let monthResponse = new MonthResponse(
+            totalIncome,
+            totalExpense,
+            flexIncome,
+            fixedIncome,
+            flexExpense,
+            fixedExpense,
+            datas
+        );
+        return monthResponse;
     } catch (err) {
         console.error("Error executing query:", err);
         throw err;
@@ -129,7 +169,6 @@ async function getByMonth(year, month) {
         client.release();
     }
 }
-
 
 module.exports = {
     getTest,

@@ -11,7 +11,6 @@ async function test(req, res) {
     }
 }
 
-
 // DB 모든 레코드 불러오기
 async function getAllData(req, res) {
     try {
@@ -31,16 +30,16 @@ async function createData(req, res) {
             req.body.category,
             req.body.isIncome,
             req.body.content,
-            req.body.amount,
+            req.body.amount
         );
-        
+
         // 데이터 저장
         const newData = await service.createData(requestData);
         res.status(201).json(newData);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error " });
-    } 
+    }
 }
 
 // 수입 불러오기
@@ -93,13 +92,13 @@ async function getByMonth(req, res) {
         }
 
         const data = await service.getByMonth(year, month);
+        console.log("controller : " + data);
         res.status(200).json(data);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error " });
     }
 }
-
 
 module.exports = {
     test,
