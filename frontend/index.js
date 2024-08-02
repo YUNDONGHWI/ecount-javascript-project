@@ -17,10 +17,16 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-// test
+// 수입,지출 데이터 읽기
 app.get("/account", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/account/account.html"));
 });
+
+// 신규 수입, 지출 데이터 등록
+app.get("/create", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/account/create.html"));
+});
+
 
 //서버 실행
 app.listen(port, () => {

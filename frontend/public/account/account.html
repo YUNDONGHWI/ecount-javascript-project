@@ -3,77 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple SPA with Vanilla JavaScript</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    button {
-      margin: 5px;
-    }
-    #data-container {
-      margin-top: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="../style.css">
+  <title>수입/지출 관리</title>
 </head>
 <body>
-  <h1>재무 관리</h1>
-  <div id="buttons">
-    <button onclick="fetchData('all')">전체</button>
-    <button onclick="fetchData('income')">수입</button>
-    <button onclick="fetchData('expense')">지출</button>
+  
+  <div class="navbar">
+    Account Book Application
   </div>
-  <div id="data-container"></div>
 
-  <script>
-    async function fetchData(category) {
+  <h2 style="text-align: center; margin-top: 5rem;">수입/지출 관리</h2>
 
-      const URI = "http://localhost:5000"
-      let url = ""
+  <div class="content-box">
 
-      // 임의의 API URL 설정 (실제 백엔드 API 엔드포인트로 교체 필요)
-      if (category == 'all') {
-        url = `${URI}/api/account-book`;
-      } else if (category == 'income') {
-        url = `${URI}/api/income`;
-      } else if (category == 'expense') {
-        url = `${URI}/api/expenditure`;
-      }
+    <div class="content-menu" id="buttons">
+      <div class="menu-button" onclick="fetchData('all')">전체</div>
+      <div class="menu-button" onclick="fetchData('income')">수입</div>
+      <div class="menu-button" onclick="fetchData('expense')">지출</div>
+    </div>
 
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        renderData(data);
-      } catch (error) {
-        console.error('Fetch error:', error);
-        renderError(error);
-      }
-    }
+    <a href="/create">
+      <div class="create-button">등록하기</div>
+    </a>
 
-    function renderData(data) {
-      const container = document.getElementById('data-container');
-      container.innerHTML = ''; // 기존 내용을 지우기
+    <div class="columns">
+        <div class="column-date">일시</div>
+        <div class="column-category">분류</div>
+        <div class="column-content">내용</div>
+        <div class="column-amount">금액</div>
+    </div>
 
-      if (data.length === 0) {
-        container.innerHTML = '<p>No data available</p>';
-        return;
-      }
+    <div id="data-container"></div>
 
-      const list = document.createElement('ul');
-      data.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `일시: ${item.createdDttm}, 분류: ${item.category}, 내용: ${item.content}, 금액: ${item.amount}`;
-        list.appendChild(listItem);
-      });
-      container.appendChild(list);
-    }
+    <footer></footer>
+  </div>
 
-    function renderError(error) {
-      const container = document.getElementById('data-container');
-      container.innerHTML = `<p>Error: ${error.message}</p>`;
-    }
-  </script>
+  <script src="./account.js"></script>
 </body>
 </html>
