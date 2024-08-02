@@ -3,9 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
     <title>수입/지출 등록</title>
 </head>
 <body>
+    <div class="navbar">
+        Account Book Application
+    </div>
+
+    <h2 style="text-align: center; margin-top: 5rem;">수입/지출 등록</h2>
+
+    <div class="form-box">
+        <form id="transaction-form">
+            <div class="input-box">
+                <label for="type">유형:</label>
+                <select id="type" name="type" required>
+                    <option value="">선택하세요</option>
+                    <option value="income">수입</option>
+                    <option value="expense">지출</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <label for="category">분류:</label>
+                <select id="category" name="category" required>
+                    <option value="">유형을 먼저 선택하세요</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <label for="content">내용:</label>
+                <input type="text" id="content" name="content" required>
+            </div>
+            <div class="input-box">
+                <label for="amount">금액:</label>
+                <input type="number" id="amount" name="amount" required>
+            </div>
+            <div class="submit-button">
+                <button type="submit">등록</button>
+            </div>    
+        </form>
+    </div>
     
+    <footer></footer>
+
+    <script src="./create.js"></script>
 </body>
 </html>

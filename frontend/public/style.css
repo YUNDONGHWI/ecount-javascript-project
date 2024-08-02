@@ -120,6 +120,36 @@ a {
     border-radius: 10px;
 }
 
+
+.form-box {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    padding: 2rem;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+}
+
+.input-box {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.submit-button {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.submit-button button {
+    width: 5rem;
+    height: 2rem;
+    background-color: #00055e;
+    color: white;
+    border-radius: 5px;
+}
+
 footer {
     height: 5rem;
 }
