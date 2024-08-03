@@ -35,7 +35,7 @@ document.getElementById('type').addEventListener('change', function() {
     console.log(data)
 
     try {
-      const response = await fetch('http://localhost:5000/api/account-book', {
+      const response = await fetch(`http://localhost:5000/api/account-book`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ document.getElementById('type').addEventListener('change', function() {
       console.log('Success:', result);
 
       alert('등록이 완료되었습니다.');
-      window.location.href = 'http://localhost:3000/account';
+      window.location.href = `/account`;
     
   } catch (error) {
       console.error('Error:', error);

@@ -12,6 +12,11 @@ body {
     font-weight: bold;
 }
 
+.navbar a {
+    color: white;
+    text-decoration-line: none;
+}
+
 .content{
     width: 70%;
     margin: 0 auto;
