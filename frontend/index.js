@@ -29,7 +29,7 @@ app.get("/account/create", (req, res) => {
 });
 //월별 수익 지출 조회
 app.get("/month", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/account/month.html"));
+    res.sendFile(path.join(__dirname, "./public/month/month.html"));
 });
 
 //서버 실행

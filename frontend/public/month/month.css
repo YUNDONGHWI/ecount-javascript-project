@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #00055e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content{
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* 테이블 스타일 */
+#monthTable {
+    width: 100%;
+    border-collapse: collapse; /* 테두리 간격 제거 */
+    margin: 20px 0; /* 상하 여백 */
+}
+
+/* 셀 스타일 */
+#monthTable td {
+    border: 1px solid #ddd; /* 연한 회색 테두리 */
+    padding: 8px; /* 셀 패딩 */
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+/* 데이터가 없을 때 메시지 스타일 */
+#monthTable .no-data {
+    text-align: center; /* 가운데 정렬 */
+    color: #00055e; /* 글자 색상 */
+    font-size: 1.2rem; /* 폰트 크기 */
+    font-weight: bold; /* 폰트 굵기 */
+    padding: 20px; /* 여백 */
+}
+
+/* 총합 행 스타일 */
+#monthTable .total {
+    font-weight: bold; /* 글씨 굵게 */
+    color: #00055e; /* 글자 색상 */
+}
+
+/* 항목별 스타일 */
+
+#monthTable .minus {
+    color: red; /* 비용 퍼센트 빨간색 */
+}
+#monthTable .plus{
+    color: green; /* 수익 퍼센트 초록색 */
+}
+
+/* 테이블 구분선 스타일 */
+#monthTable td {
+    border-bottom: 1px solid #ddd; /* 로우 간의 회색 실선 */
+}
