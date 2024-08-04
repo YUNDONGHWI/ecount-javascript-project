@@ -92,7 +92,6 @@ async function getByMonth(req, res) {
         }
 
         const data = await service.getByMonth(year, month);
-        console.log("controller : " + data);
         res.status(200).json(data);
     } catch (err) {
         console.error(err);

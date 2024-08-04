@@ -1,7 +1,18 @@
 const monthPicker = document.getElementById("monthPicker");
+const now = new Date();
+const str = now.toISOString();
+const year = str.substring(0, 4); 
+const month = str.substring(5, 7); 
+const currentMonth = `${year}-${month}`;
+monthPicker.setAttribute('max', currentMonth);
+monthPicker.setAttribute('min', "2010-01");
+
 monthPicker.addEventListener("input", function (e) {
     fetchData(e.target.value.substring(0, 4), e.target.value.substring(5));
 });
+
+monthPicker.value = currentMonth;
+monthPicker.dispatchEvent(new Event('input'));
 
 async function fetchData(year, month) {
     const URL = `http://localhost:5000/api/monthly-data?year=${year}&month=${month}`;
