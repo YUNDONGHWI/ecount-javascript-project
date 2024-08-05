@@ -1,5 +1,5 @@
 async function fetchData(category) {
-    const URI = `http://172.29.12.155:5000`;
+    const URI = `http://localhost:5000`; //IP 주소 입력 필요
     let url = "";
 
     // 임의의 API URL 설정 (실제 백엔드 API 엔드포인트로 교체 필요)

@@ -35,7 +35,8 @@ document.getElementById("transaction-form").addEventListener("submit", async fun
     console.log(data);
 
     try {
-        const response = await fetch(`http://172.29.12.155:5000/api/account-book`, {
+        const response = await fetch(`http:/localhost:5000/api/account-book`, {
+            //IP 주소 입력 필요
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

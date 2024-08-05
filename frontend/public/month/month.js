@@ -15,7 +15,7 @@ monthPicker.value = currentMonth;
 monthPicker.dispatchEvent(new Event("input"));
 
 async function fetchData(year, month) {
-    const URL = `http://172.29.12.155:5000/api/monthly-data?year=${year}&month=${month}`;
+    const URL = `http://localhost:5000/api/monthly-data?year=${year}&month=${month}`; //IP 주소 입력 필요
     try {
         const response = await fetch(URL);
         if (!response.ok) {
@@ -45,10 +45,10 @@ function render(data) {
     }
 
     let fixedExpenseDetails = [
-        { category: "고정 비용", amount: data.fixedExpense, is_income: false }, // 고정비
+        { category: "고정 비용", amount: data.fixedExpense, is_income: false }, // 고정비용
     ];
     let flexExpenseDetails = [
-        { category: "유동 비용", amount: data.flexExpense, is_income: false },
+        { category: "유동 비용", amount: data.flexExpense, is_income: false }, //유동 비용
     ];
     let fixedIncomeDetails = [
         { category: "고정 수익", amount: data.fixedIncome, is_income: true }, // 월급
