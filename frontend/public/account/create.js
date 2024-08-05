@@ -55,6 +55,5 @@ document.getElementById("transaction-form").addEventListener("submit", async fun
         window.location.href = `/account`;
     } catch (error) {
         console.error("Error:", error);
-        // Handle errors here, e.g., show an error message to the user
     }
 });

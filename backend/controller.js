@@ -1,6 +1,7 @@
 const AccountRequest = require("./model/AccountRequest");
 const service = require("./service");
 
+// 테스트 API
 async function test(req, res) {
     try {
         const data = await service.getTest();

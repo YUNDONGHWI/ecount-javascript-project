@@ -1,8 +1,9 @@
 async function fetchData(category) {
+
     const URI = `http://localhost:5000`; //IP 주소 입력 필요
     let url = "";
-
-    // 임의의 API URL 설정 (실제 백엔드 API 엔드포인트로 교체 필요)
+    
+    // 누르는 버튼에 따라 호출할 API URL 지정
     if (category == "all") {
         url = `${URI}/api/account-book`;
     } else if (category == "income") {
@@ -22,6 +23,7 @@ async function fetchData(category) {
     }
 }
 
+// 받아온 json data로 내용 렌더링하기
 function renderData(data) {
     const container = document.getElementById("data-container");
     container.innerHTML = ""; // 기존 내용을 지우기
