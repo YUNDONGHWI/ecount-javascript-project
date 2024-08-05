@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const app = express();
-const port = process.env.FRONT_PORT;
+const port = 3000;
 
 //정적 파일 위치한 디렉토리 설정
 //path : Node.js에서 경로 다루는 내장 모듈

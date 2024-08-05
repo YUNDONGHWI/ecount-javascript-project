@@ -135,8 +135,8 @@ async function getByMonth(year, month) {
         let flexExpense = 0;
         let fixedExpense = 0;
 
-        const fixedExpenseCategories = ["통신비", "교육비", "주거비", "세금"];
-        const flexExpenseCategories = ["식비", "여가비", "의료비"];
+        const fixedExpenseCategories = ["통신비", "교육비", "주거비", "세금", "교통비"];
+        const flexExpenseCategories = ["식비", "여가비", "의료비", "기타"];
 
         result.rows.forEach((row) => {
             if (fixedExpenseCategories.includes(row.category) && row.is_income === false) {
@@ -166,6 +166,7 @@ async function getByMonth(year, month) {
             fixedExpense,
             datas
         );
+        console.log(monthResponse);
         return monthResponse;
     } catch (err) {
         console.error("Error executing query:", err);
